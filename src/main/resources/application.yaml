@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: cis
+  http:
+    converters:
+      preferred-json-mapper: gson
+  datasource:
+    url: jdbc:postgresql://172.21.70.50:5432/postgres?tinyInt1isBit=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+    initial-size: 10
+    max-active: 20
+    maximum-pool-size: 25
+    connection-timeout: 2000
+    login-timeout: 3000
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000
+
+
+server:
+  port: 25000
+  name: cis
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+    com.siemens: DEBUG
+
+ribbon:
+  OkToRetryOnAllOperations: true
+  MaxAutoRetriesNextServer: 1
+  MaxAutoRetries: 3
+  ReadTimeout: 5000
+  ConnectTimeout: 5000

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siemens.csde.infrastructure.scheduler.mybatis.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_type" jdbcType="INTEGER" property="taskType" />
+    <result column="task_cron" jdbcType="VARCHAR" property="taskCron" />
+    <result column="task_desc" jdbcType="VARCHAR" property="taskDesc" />
+    <result column="endpoint" jdbcType="VARCHAR" property="endpoint" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="udpate_time" jdbcType="TIMESTAMP" property="udpateTime" />
+    <result column="retry_times" jdbcType="INTEGER" property="retryTimes" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, app_id, task_name, task_type, task_cron, task_desc,endpoint, last_time, create_time, udpate_time,
+    retry_times,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cis.tb_task
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cis.tb_task
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
+    insert into cis.tb_task (id, app_id, task_name, 
+      task_type, task_cron, task_desc, endpoint,
+    last_time, create_time, udpate_time,retry_times,
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=INTEGER}, #{taskCron,jdbcType=VARCHAR}, #{taskDesc,jdbcType=VARCHAR},#{endpoint,jdbcType=VARCHAR},
+    #{lastTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{udpateTime,jdbcType=TIMESTAMP},
+    ,#{retryTimes,jdbcType=INTEGER},  #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
+    insert into cis.tb_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="taskCron != null">
+        task_cron,
+      </if>
+      <if test="taskDesc != null">
+        task_desc,
+      </if>
+      <if test="endpoint != null">
+        endpoint,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="udpateTime != null">
+        udpate_time,
+      </if>
+      <if test="retryTimes != null">
+        retry_times,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="taskCron != null">
+        #{taskCron,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null">
+        #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="endpoint != null">
+        #{endpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udpateTime != null">
+        #{udpateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retryTimes != null">
+        #{retryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
+    update cis.tb_task
+    <set>
+      <if test="appId != null">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="taskCron != null">
+        task_cron = #{taskCron,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null">
+        task_desc = #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="endpoint != null">
+        endpoint = #{endpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="udpateTime != null">
+        udpate_time = #{udpateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retryTimes != null">
+        retryTimes = #{retryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
+    update cis.tb_task
+    set app_id = #{appId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=INTEGER},
+      task_cron = #{taskCron,jdbcType=VARCHAR},
+      task_desc = #{taskDesc,jdbcType=VARCHAR},
+      endpoint = #{endpoint,jdbcType=VARCHAR},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      udpate_time = #{udpateTime,jdbcType=TIMESTAMP},
+      retry_times = #{retryTimes,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

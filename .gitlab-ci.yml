@@ -1,0 +1,40 @@
+image: nhelsherif/jdk-gradle
+
+variables:
+  CACHE_HOME: /home/macb/cache
+  GRADLE_USER_HOME: /home/macb/cache
+  SONAR_USER_HOME: /home/macb/cache
+
+stages:
+- build
+
+.runner_tags: &runner_tags
+  tags:
+  - mdsp-macb-app-runner
+
+.runner_cache: &runner_cache
+  cache:
+    key: ${CI_PROJECT_NAME}
+    paths:
+    - ${CACHE_HOME}
+
+.sonar_enable: &sonar_enable
+  only:
+    variables:
+    - $SONAR_ENABLE == "true"
+
+
+
+before_script:
+- date
+
+
+after_script:
+- date
+
+build:
+  stage: build
+  <<: *runner_tags
+  script:
+  - gradle -v
+
