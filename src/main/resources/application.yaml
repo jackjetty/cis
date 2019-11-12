@@ -47,3 +47,13 @@ ribbon:
   MaxAutoRetries: 3
   ReadTimeout: 5000
   ConnectTimeout: 5000
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+#mybatis
+mybatis:
+  config-locations: classpath:config/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.siemens.csde.infrastructure.scheduler.mybatis.model

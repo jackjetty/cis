@@ -1,7 +1,6 @@
 package com.siemens.csde.infrastructure.scheduler.component;
 
 import com.google.common.collect.Lists;
-import com.siemens.csde.infrastructure.scheduler.config.scheduler.TaskScheduled;
 import com.siemens.csde.infrastructure.scheduler.job.HttpJob;
 import com.siemens.csde.infrastructure.scheduler.pojo.dto.ScheduledTaskDto;
 import java.util.LinkedList;

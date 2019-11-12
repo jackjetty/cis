@@ -38,6 +38,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     //compile group: 'org.springframework.boot', name: 'spring-boot-starter-quartz', version: '2.0.4.RELEASE'
     compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.0'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'

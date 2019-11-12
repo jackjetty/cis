@@ -5,10 +5,10 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="app_desc" jdbcType="VARCHAR" property="appDesc" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, url, desc
+    id, name, url, app_desc
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -21,9 +21,9 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.AppModel">
-    insert into cis.tb_app (id, name, url ,desc
+    insert into cis.tb_app (id, name, url ,app_desc
       )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{appDesc,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.AppModel">
@@ -38,8 +38,8 @@
       <if test="url != null">
         url,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="appDesc != null">
+        app_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -52,8 +52,8 @@
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="appDesc != null">
+        #{appDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -66,8 +66,8 @@
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="appDesc != null">
+        app_desc = #{appDesc,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -75,7 +75,7 @@
   <update id="updateByPrimaryKey" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.AppModel">
     update cis.tb_app
     set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},desc = #{desc,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},app_desc = #{appDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -31,5 +31,7 @@ public class TaskModel {
 
     private Integer retryTimes;
 
+    private String appUrl;
+
 
 }

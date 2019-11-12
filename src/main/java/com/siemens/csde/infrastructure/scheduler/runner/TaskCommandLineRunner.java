@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class CISCommandLineRunner implements CommandLineRunner {
+public class TaskCommandLineRunner implements CommandLineRunner {
 
     @Autowired
     private RPCService rpcService;
@@ -21,6 +21,7 @@ public class CISCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        //taskService.addTask();
         taskService.loadTasks();
        // rpcService.getHttpRequest();
     }

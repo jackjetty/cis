@@ -1,9 +1,12 @@
 package com.siemens.csde.infrastructure.scheduler.config.scheduler;
 
+import com.siemens.csde.infrastructure.scheduler.component.TaskListener;
 import java.io.IOException;
 import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationListener;
@@ -16,6 +19,9 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 @Configuration
 @Slf4j
 public class SchedulerConfig implements ApplicationListener<ContextRefreshedEvent> {
+    @Autowired
+    private TaskListener taskListener;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -33,8 +39,8 @@ public class SchedulerConfig implements ApplicationListener<ContextRefreshedEven
 
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean(){
-        SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
-        //schedulerFactoryBean.setSchedulerName("CIS-Scheduler");
+       SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
+       schedulerFactoryBean.setSchedulerName("CIS-Scheduler");
        schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContext");
         try {
             schedulerFactoryBean.setQuartzProperties(quartzProperties());
@@ -48,7 +54,13 @@ public class SchedulerConfig implements ApplicationListener<ContextRefreshedEven
     @Bean
     public Scheduler scheduler(@Qualifier("schedulerFactoryBean") SchedulerFactoryBean schedulerFactoryBean){
         //SchedulerFactoryBean schedulerFactoryBean=schedulerFactoryBean();
-        return schedulerFactoryBean.getScheduler();
+        Scheduler scheduler=schedulerFactoryBean.getScheduler();
+        try {
+            scheduler.getListenerManager().addJobListener(taskListener);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return  scheduler;
     }
 
 }

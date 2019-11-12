@@ -12,7 +12,7 @@ public class AppModel {
 
     private String url;
 
-    private String desc;
+    private String appDesc;
 
 
 }

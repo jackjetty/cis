@@ -149,7 +149,7 @@
         udpate_time = #{udpateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="retryTimes != null">
-        retryTimes = #{retryTimes,jdbcType=INTEGER},
+        retry_times = #{retryTimes,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -172,4 +172,17 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <!--自定义-->
+  <resultMap id="AppInfoResultMap" type="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel" extends="BaseResultMap" >
+    <result column="appUrl" property="appUrl" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectEnabledTasks" resultMap="AppInfoResultMap" >
+    select  t.*,a.url as appUrl
+    from cis.tb_task t
+    left join cis.tb_app a on t.app_id=a.id
+    where t.status = 1
+    order by t.create_time
+  </select>
+
 </mapper>

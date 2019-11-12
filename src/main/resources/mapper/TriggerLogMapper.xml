@@ -125,4 +125,17 @@
       retry_times = #{retryTimes,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
+  <insert id="insertTriggerLogs">
+    insert into cis.tb_trigger_log (id, app_id, task_id,
+    start_time, end_time, status,
+    task_url, retry_times)
+    values
+    <foreach collection="triggerLogModels" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.appId,jdbcType=VARCHAR}, #{item.taskId,jdbcType=VARCHAR},
+      #{item.startTime,jdbcType=TIMESTAMP}, #{item.endTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=VARCHAR},
+      #{item.taskUrl,jdbcType=VARCHAR}, #{item.retryTimes,jdbcType=INTEGER})
+    </foreach>
+  </insert>
 </mapper>

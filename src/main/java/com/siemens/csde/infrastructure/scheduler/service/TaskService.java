@@ -4,4 +4,7 @@ public interface TaskService{
 
     void loadTasks();
 
+    void addTask();
+
+
 }
