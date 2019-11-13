@@ -7,4 +7,6 @@ public class TaskConstant{
     //删除
     public static final int STATUS_DELETED=-1;
 
+
+    public static final int TYPE_HTTP=1;
 }

@@ -31,13 +31,13 @@
   </delete>
   <insert id="insert" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
     insert into cis.tb_task (id, app_id, task_name, 
-      task_type, task_cron, task_desc, endpoint,
+    task_type, task_cron, task_desc, endpoint,
     last_time, create_time, udpate_time,retry_times,
-      status)
+    status)
     values (#{id,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
-      #{taskType,jdbcType=INTEGER}, #{taskCron,jdbcType=VARCHAR}, #{taskDesc,jdbcType=VARCHAR},#{endpoint,jdbcType=VARCHAR},
+    #{taskType,jdbcType=INTEGER}, #{taskCron,jdbcType=VARCHAR}, #{taskDesc,jdbcType=VARCHAR},#{endpoint,jdbcType=VARCHAR},
     #{lastTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{udpateTime,jdbcType=TIMESTAMP},
-    ,#{retryTimes,jdbcType=INTEGER},  #{status,jdbcType=INTEGER})
+    #{retryTimes,jdbcType=INTEGER},  #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.siemens.csde.infrastructure.scheduler.mybatis.model.TaskModel">
     insert into cis.tb_task
@@ -183,6 +183,14 @@
     left join cis.tb_app a on t.app_id=a.id
     where t.status = 1
     order by t.create_time
+  </select>
+
+  <select id="selectTaskByAppIdAndTaskName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cis.tb_task
+    where app_id = #{appId,jdbcType=VARCHAR} and task_name = #{taskName,jdbcType=VARCHAR} and status = 1
+    limit 1
   </select>
 
 </mapper>

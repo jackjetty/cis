@@ -18,6 +18,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -67,10 +68,35 @@ public class SchedulerBroker {
         //scheduler.scheduleJob(trigger);
     }
 
+    public void removeTask(String appId,String taskName) throws SchedulerException{
+
+        TriggerKey triggerKey=new TriggerKey(PREFIX_TRIGGER+taskName,appId);
+        JobKey jobKey=new JobKey(PREFIX_JOB+taskName,appId);
+        Trigger trigger=scheduler.getTrigger(triggerKey);
+        if(trigger!=null){
+            scheduler.pauseTrigger(triggerKey);
+        }
+        JobDetail jobDetail=scheduler.getJobDetail(jobKey);
+        if(jobDetail!=null){
+            scheduler.pauseJob(jobKey);
+            scheduler.deleteJob(jobKey);
+        }
+
+    }
 
 
+    public void pauseTask(String appId,String taskName) throws SchedulerException{
 
+        JobKey jobKey = JobKey.jobKey(PREFIX_JOB+taskName,appId);
+        scheduler.pauseJob(jobKey);
 
+    }
+
+    public void resumeTask(String appId,String taskName) throws SchedulerException{
+
+        JobKey jobKey = JobKey.jobKey(PREFIX_JOB+taskName,appId);
+        scheduler.resumeJob(jobKey);
+    }
 
 
     public  JobDetail getJobDetailByTriggerName( Trigger trigger) {

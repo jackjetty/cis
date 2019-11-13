@@ -6,8 +6,8 @@ public enum ErrorEnum{
     ERROR_NOTFOUND(400,"记录没找到"),
     ERROR_UNAUTHORIZED(403,"没有相应权限"),
     ERROR_UNLOGIN(300,"用户未登录"),
-    ERROR_UNKNOW(500,"未知错误");
-
+    ERROR_UNKNOW(500,"未知错误"),
+    SUCCESS(1,"operate success !");
 
     private int code;
     private String msg;

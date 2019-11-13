@@ -27,7 +27,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public Gson gson() {
         GsonBuilder b = new GsonBuilder();
-        b.registerTypeAdapterFactory(DateTypeAdapter.FACTORY);
+        //b.registerTypeAdapterFactory(DateTypeAdapter.FACTORY);
+        b.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return b.create();
     }
 
